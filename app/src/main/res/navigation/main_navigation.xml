@@ -9,5 +9,14 @@
         android:id="@+id/homeFragment"
         android:name="be.valerianpt.tictactoe.HomeFragment"
         android:label="fragment_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_chooseSideFragment"
+            app:destination="@id/chooseSideFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseSideFragment"
+        android:name="be.valerianpt.tictactoe.ChooseSideFragment"
+        android:label="fragment_choose_side"
+        tools:layout="@layout/fragment_choose_side" />
 </navigation>

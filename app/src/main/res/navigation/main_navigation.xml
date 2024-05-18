@@ -18,5 +18,14 @@
         android:id="@+id/chooseSideFragment"
         android:name="be.valerianpt.tictactoe.ChooseSideFragment"
         android:label="fragment_choose_side"
-        tools:layout="@layout/fragment_choose_side" />
+        tools:layout="@layout/fragment_choose_side" >
+        <action
+            android:id="@+id/action_chooseSideFragment_to_gameFragment"
+            app:destination="@id/gameFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gameFragment"
+        android:name="be.valerianpt.tictactoe.GameFragment"
+        android:label="fragment_game"
+        tools:layout="@layout/fragment_game" />
 </navigation>

@@ -1,19 +1,19 @@
-package be.valerianpt.tictactoe
+package be.valerianpt.tictactoe.ui
 
-import android.content.res.ColorStateList
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
+import be.valerianpt.tictactoe.R
 import be.valerianpt.tictactoe.databinding.FragmentChooseSideBinding
-import be.valerianpt.tictactoe.databinding.FragmentHomeBinding
+import be.valerianpt.tictactoe.model.Player
 
 class ChooseSideFragment : Fragment() {
     private lateinit var binding: FragmentChooseSideBinding
+    private var isCircleSymbol = true
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -25,17 +25,20 @@ class ChooseSideFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        selectButtonUI(false)
+        selectButtonUI()
 
         binding.xButton.setOnClickListener {
-            selectButtonUI(true)
+            isCircleSymbol = false
+            selectButtonUI()
         }
 
         binding.oButton.setOnClickListener {
-            selectButtonUI(false)
+            isCircleSymbol = true
+            selectButtonUI()
         }
 
         binding.launchGameButton.setOnClickListener {
+            Player.isCircleSymbol = isCircleSymbol
             findNavController().navigate(ChooseSideFragmentDirections.actionChooseSideFragmentToGameFragment())
         }
 
@@ -44,18 +47,26 @@ class ChooseSideFragment : Fragment() {
         }
     }
 
-    private fun selectButtonUI(isXButton: Boolean) {
-        if (isXButton) {
-            binding.xButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.round_button)
+    private fun selectButtonUI() {
+        if (!isCircleSymbol) {
+            binding.xButton.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.round_button
+            )
             binding.xButton.setImageResource(R.drawable.x_symbol_purple)
 
-            binding.oButton.background = ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
+            binding.oButton.background =
+                ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
             binding.oButton.setImageResource(R.drawable.circle_symbol)
         } else {
-            binding.oButton.background = ContextCompat.getDrawable(requireContext(), R.drawable.round_button)
+            binding.oButton.background = ContextCompat.getDrawable(
+                requireContext(),
+                R.drawable.round_button
+            )
             binding.oButton.setImageResource(R.drawable.circle_symbol_purple)
 
-            binding.xButton.background = ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
+            binding.xButton.background =
+                ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
             binding.xButton.setImageResource(R.drawable.x_symbol)
         }
     }

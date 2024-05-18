@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background_linear_gradient"
     android:orientation="vertical"
-    tools:context=".ChooseSideFragment">
+    tools:context=".ui.ChooseSideFragment">
 
     <TextView
         android:id="@+id/choose_side_title"
@@ -25,7 +25,6 @@
         android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -54,7 +53,7 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="40dp"
@@ -87,6 +86,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

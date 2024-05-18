@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="be.valerianpt.tictactoe.HomeFragment"
+        android:name="be.valerianpt.tictactoe.ui.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/chooseSideFragment"
-        android:name="be.valerianpt.tictactoe.ChooseSideFragment"
+        android:name="be.valerianpt.tictactoe.ui.ChooseSideFragment"
         android:label="fragment_choose_side"
         tools:layout="@layout/fragment_choose_side" >
         <action

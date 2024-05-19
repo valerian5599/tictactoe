@@ -28,4 +28,9 @@
         android:name="be.valerianpt.tictactoe.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" />
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="be.valerianpt.tictactoe.ResultFragment"
+        android:label="fragment_result"
+        tools:layout="@layout/fragment_result" />
 </navigation>

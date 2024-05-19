@@ -2,7 +2,6 @@ package be.valerianpt.tictactoe
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,20 +12,24 @@ import android.widget.ImageView
 import androidx.navigation.fragment.findNavController
 import be.valerianpt.tictactoe.databinding.FragmentGameBinding
 import be.valerianpt.tictactoe.model.Computer
-import be.valerianpt.tictactoe.model.Player
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class GameFragment : Fragment() {
+    //private val viewModel: GameViewModel by viewModels()
     //CONST
     val EMPTY = 0
     val PLAYER = 1
     val COMPUTER = 2
+    private var gridSize: Int = 4
+    private val gameArrays = Array(gridSize) { IntArray(gridSize) { EMPTY } }
+    private var isPlayerTurn = true
 
-    val gameArrays = Array(3) { IntArray(3) { EMPTY } }
+    var resultFragment = ResultFragment()
+
 
     private lateinit var binding: FragmentGameBinding
-    private var gridSize: Int = 3
-    private lateinit var gridLayout: GridLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,12 +45,41 @@ class GameFragment : Fragment() {
         setupGameGrid(gridSize)
 
         binding.relaunchGameButton.setOnClickListener {
-            resetGame(3)
+            resetGame(gridSize)
         }
 
         binding.homeButton.setOnClickListener {
             findNavController().popBackStack(R.id.homeFragment, false)
         }
+    }
+
+    //Setup
+    private fun setupGameGrid(size: Int) {
+        val gridLayout = binding.gameGrid
+        gridLayout.columnCount = size
+
+        for (row in 0 until size) {
+            for (col in 0 until size) {
+                val button  = setupGridButton(row,col)
+                gridLayout.addView(button)
+            }
+        }
+    }
+
+    private fun setupGridButton(row: Int, col: Int): ImageButton {
+        val button = ImageButton(requireContext())
+        val buttonId = "$row$col"
+        button.id = buttonId.toInt()
+        button.scaleType = ImageView.ScaleType.FIT_CENTER
+        button.setOnClickListener {
+            //TODO: handle button click
+            //handleButtonClick(i, j)
+        }
+        val params = GridLayout.LayoutParams()
+        params.width = 200
+        params.height = 200
+        button.layoutParams = params
+        return button
     }
 
     private fun resetGame(size: Int) {
@@ -58,30 +90,37 @@ class GameFragment : Fragment() {
                 view?.findViewById<ImageButton>(buttonId.toInt())?.setImageResource(0)
             }
         }
+        isPlayerTurn = true
+        binding.gameTitle.text = "C'est votre tour"
     }
 
     private fun checkGameEnd(): Boolean {
         // lignes
-        for (i in 0..2) {
-            if (gameArrays[i][0] == gameArrays[i][1] && gameArrays[i][1] == gameArrays[i][2] && gameArrays[i][0] != EMPTY) {
+        for (i in 0 until gridSize) {
+            if ((0 until gridSize).all { j -> gameArrays[i][j] == gameArrays[i][0] && gameArrays[i][0] != EMPTY }) {
                 showEndGameDialog(if (gameArrays[i][0] == PLAYER) "Vous avez gagné!" else "Vous avez perdu..")
                 return true
             }
         }
 
         // colonnes
-        for (i in 0..2) {
-            if (gameArrays[0][i] == gameArrays[1][i] && gameArrays[1][i] == gameArrays[2][i] && gameArrays[0][i] != EMPTY) {
+        for (i in 0 until gridSize) {
+            if ((0 until gridSize).all { j -> gameArrays[j][i] == gameArrays[0][i] && gameArrays[0][i] != EMPTY }) {
+                resultFragment.show(requireActivity().supportFragmentManager, "resultFragment")
                 showEndGameDialog(if (gameArrays[0][i] == PLAYER) "Vous avez gagné!" else "Vous avez perdu..")
                 return true
             }
         }
 
-        // diagonales
-        if ((gameArrays[0][0] == gameArrays[1][1] && gameArrays[1][1] == gameArrays[2][2] && gameArrays[0][0] != EMPTY) ||
-            (gameArrays[0][2] == gameArrays[1][1] && gameArrays[1][1] == gameArrays[2][0] && gameArrays[0][2] != EMPTY)
-        ) {
-            showEndGameDialog(if (gameArrays[1][1] == PLAYER) "Vous avez gagné!" else "Vous avez perdu..")
+        // première diagonale
+        if ((0 until gridSize).all { i -> gameArrays[i][i] == gameArrays[0][0] && gameArrays[0][0] != EMPTY }) {
+            showEndGameDialog(if (gameArrays[0][0] == PLAYER) "Vous avez gagné!" else "Vous avez perdu..")
+            return true
+        }
+
+        // deuxième diagonale
+        if ((0 until gridSize).all { i -> gameArrays[i][gridSize - i - 1] == gameArrays[0][gridSize - 1] && gameArrays[0][gridSize - 1] != EMPTY }) {
+            showEndGameDialog(if (gameArrays[0][gridSize - 1] == PLAYER) "Vous avez gagné!" else "Vous avez perdu..")
             return true
         }
 
@@ -100,43 +139,10 @@ class GameFragment : Fragment() {
             .show()
     }
 
-    private fun setupGameGrid(size: Int) {
-        gridLayout = binding.gameGrid
-        gridLayout.columnCount = size
-
-        for (i in 0 until size) {
-            for (j in 0 until size) {
-
-                val button = ImageButton(requireContext())
-                val buttonId = "$i$j"
-                button.id = buttonId.toInt()
-                button.scaleType = ImageView.ScaleType.FIT_CENTER
-                button.setOnClickListener {
-
-                    if (gameArrays[i][j] == EMPTY) {
-                        button.setImageResource(Player.getImageResource())
-                        gameArrays[i][j] = PLAYER
-                        if (!checkGameEnd()) {
-                            playComputerMove()
-                        }
-                    } else {
-                        showAlertDialog()
-                    }
-                }
-
-                val params = GridLayout.LayoutParams()
-                params.width = 200
-                params.height = 200
-                button.layoutParams = params
-                gridLayout.addView(button)
-            }
-        }
-    }
-
     private fun playComputerMove() {
         val emptyCells = mutableListOf<Pair<Int, Int>>()
-        for (i in 0..2) {
-            for (j in 0..2) {
+        for (i in 0 until gridSize) {
+            for (j in 0 until gridSize) {
                 if (gameArrays[i][j] == EMPTY) {
                     emptyCells.add(Pair(i, j))
                 }
@@ -150,14 +156,16 @@ class GameFragment : Fragment() {
             val buttonId = "$row$col"
             view?.findViewById<ImageButton>(buttonId.toInt())
                 ?.setImageResource(Computer.getImageResource())
+            binding.gameTitle.text = "Votre tour"
+            isPlayerTurn = true
             checkGameEnd()
         }
     }
 
-    private fun showAlertDialog() {
+    private fun showAlertDialog(message: String) {
         val builder = AlertDialog.Builder(context)
             .setTitle("Erreur")
-            .setMessage("Cette cellule n'est pas vide.")
+            .setMessage(message)
             .setPositiveButton("Ok") { dialog, which ->
             }
         builder.show()

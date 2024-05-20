@@ -37,7 +37,6 @@ class ResultFragmentDialog : DialogFragment() {
         resultFragmentListener = null
     }
 
-
     private fun setupUI() {
         binding.resultTitle.text = when (gameResult) {
             1 -> getString(R.string.win_result_title)

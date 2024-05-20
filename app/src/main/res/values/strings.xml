@@ -21,6 +21,8 @@
     <!-- game -->
     <string name="relaunch_game_button">Relancer la partie</string>
     <string name="back_home_button">Arrêter la partie</string>
+    <string name="game_title_player_turn">"C'est votre tour"</string>
+    <string name="game_title_computer_turn">"L'ordinateur joue.."</string>
 
     <!-- game result button -->
     <string name="relaunch_game_result_button">Relancer la partie</string>

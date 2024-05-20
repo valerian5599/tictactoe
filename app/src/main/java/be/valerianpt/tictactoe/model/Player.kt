@@ -2,7 +2,7 @@ package be.valerianpt.tictactoe.model
 
 import be.valerianpt.tictactoe.R
 
-//Singleton
+// singleton
 object Player {
     var isCircleSymbol = true
 

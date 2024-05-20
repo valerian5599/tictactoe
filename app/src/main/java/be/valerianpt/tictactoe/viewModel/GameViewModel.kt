@@ -3,65 +3,82 @@ package be.valerianpt.tictactoe.viewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
+import androidx.lifecycle.viewModelScope
+import be.valerianpt.tictactoe.model.Game
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlin.random.Random
 
-class GameViewModel: ViewModel() {
-    companion object {
-        const val EMPTY = 0
-        const val PLAYER = 1
-        const val COMPUTER = 2
-    }
+class GameViewModel : ViewModel() {
 
-    private val _gameState = MutableLiveData<Array<IntArray>>()
-    val gameState: LiveData<Array<IntArray>> = _gameState
+    private val game = Game()
 
-    private var gridSize: Int = 5
+    // live data
+    private val _gameGrid = MutableLiveData<Array<IntArray>>()
+    val gameGrid: LiveData<Array<IntArray>> get() = _gameGrid
+
+    private val _winner = MutableLiveData<Int>()
+    val winner: LiveData<Int> get() = _winner
+
+    private val _currentPlayer = MutableLiveData<Int>()
+    val currentPlayer: LiveData<Int> get() = _currentPlayer
 
     init {
-        _gameState.value = Array(gridSize) { IntArray(gridSize) { EMPTY } }
+        startGame()
     }
 
-    fun cellClicked(row: Int, col: Int) {
-        val currentState = _gameState.value ?: return
+    fun getGridSize(): Int {
+        return game.getGridSize()
+    }
 
-        if (currentState[row][col] == EMPTY) {
-            currentState[row][col] = PLAYER
+    private fun updateGameGrid() {
+        _gameGrid.value = game.getGrid()
+    }
 
-            _gameState.value = currentState
-            /*if (!checkGameEnd()) {
-                GlobalScope.launch {
-                    delay(1000)
-                    withContext(Dispatchers.Main) {
-                        playComputerMove()
-                    }
+    private fun startGame() {
+        updateGameGrid()
+        chooseFirstPlayer()
+        if (_currentPlayer.value == Game.COMPUTER) {
+            playComputerMove()
+        }
+    }
+
+    private fun playComputerMove() {
+        viewModelScope.launch {
+            delay(1000) // Attendre 1 seconde avant que l'ordinateur ne joue
+            game.playComputerMove()
+            updateGameGrid()
+            _winner.value = game.checkGameEnd()
+            _currentPlayer.value = Game.PLAYER
+        }
+    }
+
+    private fun chooseFirstPlayer() {
+        // choisir aléatoirement quel joueur commencera
+        _currentPlayer.value = if (Random.nextBoolean()) Game.PLAYER else Game.COMPUTER
+    }
+
+
+    fun makeMove(row: Int, col: Int) {
+        if (_currentPlayer.value == Game.PLAYER) {
+            if (game.makeMove(row, col)) {
+                updateGameGrid()
+                _currentPlayer.value = Game.COMPUTER
+                if (game.checkGameEnd() == -1) {
+                    playComputerMove()
+                } else {
+                    _winner.value = game.checkGameEnd()
                 }
             }
         }
-    }*/
+    }
 
-            /* private fun playComputerMove() {
-        val currentState = _gameState.value ?: return
-
-        val emptyCells = mutableListOf<Pair<Int, Int>>()
-        for (i in 0 until gridSize) {
-            for (j in 0 until gridSize) {
-                if (currentState[i][j] == EMPTY) {
-                    emptyCells.add(Pair(i, j))
-                }
-            }
-        }
-
-        if (emptyCells.isNotEmpty()) {
-            val (row, col) = emptyCells.random()
-            currentState[row][col] = COMPUTER
-            _gameState = currentState
-        }
-    }*/
-
+    fun resetGrid() {
+        game.resetGrid()
+        updateGameGrid()
+        chooseFirstPlayer()
+        if (_currentPlayer.value == Game.COMPUTER) {
+            playComputerMove()
         }
     }
-    }
+}

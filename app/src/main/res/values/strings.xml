@@ -10,4 +10,7 @@
     <string name="game_rules_title">Règles du Tic Tac Toe</string>
     <string name="game_rules_description">Deux joueurs, l\'un avec des X et l\'autre avec des O, s\'affrontent en plaçant alternativement leur symbole dans une case vide. Le premier joueur à aligner trois de ses symboles horizontalement, verticalement ou en diagonale remporte la partie. Si la grille est remplie sans vainqueur, la partie est nulle.</string>
     <string name="close_rules_button">Fermer</string>
+    <string name="choose_side_title">Veuillez choisir votre symbole</string>
+    <string name="launch_game_button">Lancer la partie</string>
+    <string name="home_button">Retour à l\'accueil</string>
 </resources>

@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_linear_gradient"
-    android:orientation="vertical"
     tools:context=".ui.ChooseSideFragment">
 
     <TextView
@@ -13,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="40dp"
-        android:text="Veuillez choisir votre symbole"
+        android:text="@string/choose_side_title"
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
@@ -67,7 +66,7 @@
             android:layout_marginHorizontal="40dp"
             android:height="64dp"
             android:backgroundTint="@color/white"
-            android:text="Lancer la partie"
+            android:text="@string/launch_game_button"
             android:textColor="@color/dark_purple"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -80,7 +79,7 @@
             android:layout_marginHorizontal="40dp"
             android:height="64dp"
             android:backgroundTint="@android:color/transparent"
-            android:text="Retour à l'accueil"
+            android:text="@string/home_button"
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"

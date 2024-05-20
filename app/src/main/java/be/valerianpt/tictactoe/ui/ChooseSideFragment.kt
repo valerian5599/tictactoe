@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.findNavController
 import be.valerianpt.tictactoe.R
 import be.valerianpt.tictactoe.databinding.FragmentChooseSideBinding
@@ -49,24 +48,16 @@ class ChooseSideFragment : Fragment() {
 
     private fun selectButtonUI() {
         if (!isCircleSymbol) {
-            binding.xButton.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.round_button
-            )
+            binding.xButton.setBackgroundResource(R.drawable.round_button)
             binding.xButton.setImageResource(R.drawable.x_symbol_purple)
 
-            binding.oButton.background =
-                ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
+            binding.oButton.setBackgroundResource(android.R.color.transparent)
             binding.oButton.setImageResource(R.drawable.circle_symbol)
         } else {
-            binding.oButton.background = ContextCompat.getDrawable(
-                requireContext(),
-                R.drawable.round_button
-            )
+            binding.oButton.setBackgroundResource(R.drawable.round_button)
             binding.oButton.setImageResource(R.drawable.circle_symbol_purple)
 
-            binding.xButton.background =
-                ContextCompat.getDrawable(requireContext(), android.R.color.transparent)
+            binding.xButton.setBackgroundResource(android.R.color.transparent)
             binding.xButton.setImageResource(R.drawable.x_symbol)
         }
     }

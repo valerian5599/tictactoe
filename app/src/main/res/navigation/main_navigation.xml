@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="be.valerianpt.tictactoe.ui.HomeFragment"
+        android:name="be.valerianpt.tictactoe.ui.home.HomeFragment"
         android:label="fragment_home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -30,7 +30,12 @@
         tools:layout="@layout/fragment_game" />
     <fragment
         android:id="@+id/resultFragment"
-        android:name="be.valerianpt.tictactoe.ResultFragment"
+        android:name="be.valerianpt.tictactoe.ResultFragmentDialog"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
+    <fragment
+        android:id="@+id/gameRulesFragment"
+        android:name="be.valerianpt.tictactoe.ui.home.GameRulesFragment"
+        android:label="fragment_game_rules"
+        tools:layout="@layout/fragment_game_rules" />
 </navigation>

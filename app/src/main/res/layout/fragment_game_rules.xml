@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.home.GameRulesFragment"
-    android:orientation="vertical"
-    android:padding="24dp">
+    tools:context=".ui.home.GameRulesFragment">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="24dp">
     <TextView
         android:id="@+id/game_rules_title"
         android:layout_width="match_parent"
@@ -41,4 +44,6 @@
         android:textStyle="bold"
         android:layout_marginHorizontal="24dp"
         android:layout_marginTop="24dp" />
-</LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

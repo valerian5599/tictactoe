@@ -1,6 +1,7 @@
 package be.valerianpt.tictactoe.ui.game
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
+import androidx.core.view.size
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import be.valerianpt.tictactoe.R
@@ -21,6 +23,7 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
     private lateinit var binding: FragmentGameBinding
     private val viewModel: GameViewModel by viewModels()
     private var gridSize: Int = 0
+    private lateinit var gridLayout: GridLayout
 
     // Views lifecycle
     override fun onCreateView(
@@ -29,6 +32,7 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
     ): View {
         binding = FragmentGameBinding.inflate(layoutInflater)
         gridSize = viewModel.getGridSize()
+        gridLayout = binding.gameGrid
         return binding.root
     }
 
@@ -72,8 +76,8 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
     }
 
     private fun setupGameGrid(size: Int) {
-        val gridLayout = binding.gameGrid
         gridLayout.columnCount = size
+        gridLayout.rowCount = size
 
         for (row in 0 until size) {
             for (col in 0 until size) {
@@ -90,12 +94,11 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
         button.scaleType = ImageView.ScaleType.FIT_CENTER
         button.setBackgroundResource(R.drawable.grid_button_background)
         val params = GridLayout.LayoutParams()
-        params.width = 200
-        params.height = 200
-        params.bottomMargin = 10
-        params.topMargin = 10
-        params.marginStart = 10
-        params.marginEnd = 10
+        params.width = 0
+        params.height = 0
+        params.rowSpec = GridLayout.spec(row, 1f)
+        params.columnSpec = GridLayout.spec(col, 1f)
+        params.setMargins(10, 10, 10, 10)
         button.layoutParams = params
         button.setOnClickListener {
             viewModel.makeMove(row, col)

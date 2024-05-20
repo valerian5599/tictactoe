@@ -7,7 +7,7 @@ class Game {
         const val COMPUTER = 2
     }
 
-    private var gridSize = 3
+    private var gridSize = 3 //peut être modifié
     private var grid = Array(gridSize) { IntArray(gridSize) { EMPTY } }
 
     fun makeMove(row: Int, col: Int): Boolean {

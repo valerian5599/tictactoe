@@ -54,7 +54,4 @@ dependencies {
     //navgraph
     implementation ("androidx.navigation:navigation-fragment-ktx:2.7.0")
     implementation ("androidx.navigation:navigation-ui-ktx:2.7.0")
-
-    //lottie
-    implementation ("com.airbnb.android:lottie:6.4.0")
 }

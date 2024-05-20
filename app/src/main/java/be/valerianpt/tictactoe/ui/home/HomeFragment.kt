@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import be.valerianpt.tictactoe.ResultFragmentDialog
+import be.valerianpt.tictactoe.ui.game.ResultFragmentDialog
 import be.valerianpt.tictactoe.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {

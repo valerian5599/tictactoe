@@ -25,12 +25,12 @@
     </fragment>
     <fragment
         android:id="@+id/gameFragment"
-        android:name="be.valerianpt.tictactoe.GameFragment"
+        android:name="be.valerianpt.tictactoe.ui.game.GameFragment"
         android:label="fragment_game"
         tools:layout="@layout/fragment_game" />
     <fragment
         android:id="@+id/resultFragment"
-        android:name="be.valerianpt.tictactoe.ResultFragmentDialog"
+        android:name="be.valerianpt.tictactoe.ui.game.ResultFragmentDialog"
         android:label="fragment_result"
         tools:layout="@layout/fragment_result" />
     <fragment

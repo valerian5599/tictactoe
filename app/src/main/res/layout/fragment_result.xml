@@ -4,14 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ResultFragmentDialog"
+    tools:context=".ui.game.ResultFragmentDialog"
     android:padding="24dp">
 
     <TextView
         android:id="@+id/result_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Vous avez gagné !"
         android:textAlignment="center"
         android:textColor="@color/dark_purple"
         android:textSize="30sp"
@@ -20,16 +19,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        app:lottie_rawRes="@raw/victory_animation"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="false"
+    <ImageView
+        android:id="@+id/result_image"
+        android:layout_width=
+            "80dp"
+        android:layout_height="80dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/result_title" />
+        app:layout_constraintTop_toBottomOf="@id/result_title"
+        android:layout_marginTop="24dp"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -37,7 +35,8 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/animationView">
+        app:layout_constraintTop_toBottomOf="@id/result_image"
+        android:layout_marginTop="24dp">
 
         <Button
             android:id="@+id/relaunch_game_button"
@@ -45,7 +44,7 @@
             android:layout_height="wrap_content"
             android:height="64dp"
             android:backgroundTint="@color/dark_purple"
-            android:text="Relancer la partie"
+            android:text="@string/relaunch_game_result_button"
             android:paddingHorizontal="40dp"
             android:textColor="@color/white"
             android:textStyle="bold"
@@ -53,13 +52,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/home_button"
+            android:id="@+id/back_home_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:height="64dp"
             android:paddingHorizontal="40dp"
             android:backgroundTint="@android:color/transparent"
-            android:text="Retour à l'accueil"
+            android:text="@string/back_home_result_button"
             android:textColor="@color/dark_purple"
             android:textStyle="bold" />
 

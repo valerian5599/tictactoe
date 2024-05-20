@@ -1,11 +1,11 @@
-package be.valerianpt.tictactoe
+package be.valerianpt.tictactoe.ui.game
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
-import be.valerianpt.tictactoe.databinding.FragmentGameBinding
+import be.valerianpt.tictactoe.R
 import be.valerianpt.tictactoe.databinding.FragmentResultBinding
 
 class ResultFragmentDialog : DialogFragment() {
@@ -14,30 +14,20 @@ class ResultFragmentDialog : DialogFragment() {
         fun onReturnToHome()
     }
 
-    var resultFragmentListener: ResultFragmentListener? = null
-    lateinit var binding: FragmentResultBinding
+    private lateinit var binding: FragmentResultBinding
+    private var resultFragmentListener: ResultFragmentListener? = null
+    private var gameResult: Int = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentResultBinding.inflate(layoutInflater)
-        val gameResult = arguments?.getInt("gameResult") ?: 0
 
-        binding.resultTitle.text = when (gameResult) {
-            1 -> "Vous avez gagné !"
-            2 -> "Vous avez perdu.."
-            else -> "Match nul"
-        }
+        // récupération des données
+        gameResult = arguments?.getInt("gameResult") ?: 0
 
-        binding.relaunchGameButton.setOnClickListener {
-            resultFragmentListener?.onRestartGame()
-            dismiss()
-        }
-
-        binding.homeButton.setOnClickListener {
-            resultFragmentListener?.onReturnToHome()
-            dismiss()
-        }
+        setupUI()
+        setupButton()
 
         return binding.root
     }
@@ -47,7 +37,34 @@ class ResultFragmentDialog : DialogFragment() {
         resultFragmentListener = null
     }
 
-    // Méthode pour définir le listener
+
+    private fun setupUI() {
+        binding.resultTitle.text = when (gameResult) {
+            1 -> getString(R.string.win_result_title)
+            2 -> getString(R.string.lost_result_title)
+            else -> getString(R.string.draw_result_title)
+        }
+
+        val imageSrc = when (gameResult) {
+            1 -> R.drawable.trophy
+            2 -> R.drawable.sad
+            else -> R.drawable.equal
+        }
+        binding.resultImage.setImageResource(imageSrc)
+    }
+
+    private fun setupButton() {
+        binding.relaunchGameButton.setOnClickListener {
+            resultFragmentListener?.onRestartGame()
+            dismiss()
+        }
+
+        binding.backHomeButton.setOnClickListener {
+            resultFragmentListener?.onReturnToHome()
+            dismiss()
+        }
+    }
+
     fun setOnButtonClickListener(listener: ResultFragmentListener) {
         resultFragmentListener = listener
     }

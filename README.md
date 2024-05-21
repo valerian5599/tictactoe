@@ -3,18 +3,15 @@
 Cette application est une implémentation des règles classiques du jeu Tic Tac Toe en utilisant Kotlin sur Android Studio. Dans cette version, l'utilisateur joue contre un ordinateur.
 
 ## Preview
+<div>
+  <img src="./screenshots/Screenshot_home.png" alt="Écran d'accueil" width="400" />
+  <img src="./screenshots/Screenshot_choose_side.png" alt="Configuration de la partie" width="400" />
+</div>
 
-### Écran d'accueil
-![Écran d'accueil](./screenshots/Screenshot_home.png) 
-
-### Configuration de la partie
-![Choix du pion](./screenshots/Screenshot_choose_side.png)
-
-### Jeu en cours
-![Jeu en cours](./screenshots/Screenshot_in_game.png)
-
-### Écran de victoire
-![Écran de victoire](./screenshots/Screenshot_end_game.png)
+<div>
+  <img src="./screenshots/Screenshot_in_game.png" alt="Jeu en cours" width="400" />
+  <img src="./screenshots/Screenshot_end_game.png" alt="Écran de victoire" width="400" />
+</div>
 
 ## Prérequis
 

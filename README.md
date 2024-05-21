@@ -6,9 +6,6 @@ Cette application est une implémentation des règles classiques du jeu Tic Tac 
 <div>
   <img src="./screenshots/Screenshot_home.png" alt="Écran d'accueil" width="300" />
   <img src="./screenshots/Screenshot_choose_side.png" alt="Configuration de la partie" width="300" />
-</div>
-
-<div>
   <img src="./screenshots/Screenshot_in_game.png" alt="Jeu en cours" width="300" />
   <img src="./screenshots/Screenshot_end_game.png" alt="Écran de victoire" width="300" />
 </div>

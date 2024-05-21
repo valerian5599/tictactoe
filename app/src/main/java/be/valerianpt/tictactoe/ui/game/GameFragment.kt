@@ -25,7 +25,7 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
     private var gridSize: Int = 0
     private lateinit var gridLayout: GridLayout
 
-    // Views lifecycle
+    // lifecycle
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -93,6 +93,8 @@ class GameFragment : Fragment(), ResultFragmentDialog.ResultFragmentListener {
         button.id = buttonId.toInt()
         button.scaleType = ImageView.ScaleType.FIT_CENTER
         button.setBackgroundResource(R.drawable.grid_button_background)
+
+        // update de la taille des boutons de la grille en fonction de la taille de la grid
         val params = GridLayout.LayoutParams()
         params.width = 0
         params.height = 0

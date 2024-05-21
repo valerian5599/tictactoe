@@ -21,7 +21,6 @@ class GameRulesFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // navigation
         binding.closeButton.setOnClickListener {
             dismiss()
         }

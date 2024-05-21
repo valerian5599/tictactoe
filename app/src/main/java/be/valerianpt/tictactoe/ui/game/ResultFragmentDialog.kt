@@ -23,7 +23,7 @@ class ResultFragmentDialog : DialogFragment() {
     ): View {
         binding = FragmentResultBinding.inflate(layoutInflater)
 
-        // récupération des données
+        // récupération des données de fin de partie
         gameResult = arguments?.getInt("gameResult") ?: 0
 
         setupUI()

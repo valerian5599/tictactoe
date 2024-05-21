@@ -13,7 +13,6 @@ class GameViewModel : ViewModel() {
 
     private val game = Game()
 
-    // live data
     private val _gameGrid = MutableLiveData<Array<IntArray>>()
     val gameGrid: LiveData<Array<IntArray>> get() = _gameGrid
 
@@ -27,14 +26,6 @@ class GameViewModel : ViewModel() {
         startGame()
     }
 
-    fun getGridSize(): Int {
-        return game.getGridSize()
-    }
-
-    private fun updateGameGrid() {
-        _gameGrid.value = game.getGrid()
-    }
-
     private fun startGame() {
         updateGameGrid()
         chooseFirstPlayer()
@@ -43,9 +34,17 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    fun getGridSize(): Int {
+        return game.getGridSize()
+    }
+
+    private fun updateGameGrid() {
+        _gameGrid.value = game.getGrid()
+    }
+
     private fun playComputerMove() {
         viewModelScope.launch {
-            delay(1000) // Attendre 1 seconde avant que l'ordinateur ne joue
+            delay(1000)
             game.playComputerMove()
             updateGameGrid()
             _winner.value = game.checkGameEnd()
